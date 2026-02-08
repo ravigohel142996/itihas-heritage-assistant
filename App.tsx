@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { fetchPlaceDetails, generatePlaceImage, analyzeSpatialDepth } from './services/openaiService';
+import { fetchPlaceDetails, generatePlaceImage, analyzeSpatialDepth } from './services/geminiService';
 import { Language, SearchState, LANGUAGE_CODES } from './types';
 import { TRANSLATIONS } from './translations';
 import LanguageSelector from './components/LanguageSelector';
