@@ -18,6 +18,15 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      publicDir: 'public',
+      build: {
+        rollupOptions: {
+          output: {
+            // Keep service worker separate
+            manualChunks: undefined
+          }
+        }
       }
     };
 });

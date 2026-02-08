@@ -29,7 +29,13 @@ export const TRANSLATIONS: Record<Language, any> = {
         analyzing: "Analyzing...", clear: "Clear", translate: "Translate", translating: "Translating...",
         vizUnavailable: "Visualization Unavailable", conceptRender: "AI Concept Render",
         architecture: "Architectural Style", // Kept as it is from Metadata
-        vizDesc: "Visualizing..."
+        vizDesc: "Visualizing...",
+        heritageRoutes: "Heritage Routes",
+        routesDesc: "Curated mini heritage routes across India",
+        routesHelp: "Click on any route to see all heritage sites included",
+        routesHelp2: "Click on a site name to explore its details",
+        mapView: "Map View",
+        routes: "Routes"
     },
   },
   [Language.HINDI]: {

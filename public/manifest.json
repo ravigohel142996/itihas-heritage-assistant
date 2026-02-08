@@ -1,0 +1,44 @@
+{
+  "name": "Itihas - Heritage Assistant",
+  "short_name": "Itihas3D",
+  "description": "Explore Indian heritage sites with AI-powered insights, 3D visualizations, and interactive maps",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#d4af37",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "travel", "history"],
+  "lang": "en-US",
+  "scope": "/",
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Search Heritage Sites",
+      "short_name": "Search",
+      "description": "Search for Indian heritage sites",
+      "url": "/?action=search",
+      "icons": []
+    },
+    {
+      "name": "View Routes",
+      "short_name": "Routes",
+      "description": "Explore heritage routes",
+      "url": "/?action=routes",
+      "icons": []
+    }
+  ]
+}

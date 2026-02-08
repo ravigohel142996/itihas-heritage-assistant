@@ -4,8 +4,9 @@ import { Language, SearchState, LANGUAGE_CODES } from './types';
 import { TRANSLATIONS } from './translations';
 import LanguageSelector from './components/LanguageSelector';
 import PlaceDisplay from './components/PlaceDisplay';
+import RoutePlanner from './components/RoutePlanner';
 import Loader from './components/Loader';
-import { SearchIcon, MicIcon, HeartIcon, XIcon, CheckIcon } from './components/Icons';
+import { SearchIcon, MicIcon, HeartIcon, XIcon, CheckIcon, RouteIcon } from './components/Icons';
 
 const App: React.FC = () => {
   const [state, setState] = useState<SearchState>({
@@ -38,6 +39,7 @@ const App: React.FC = () => {
     }
   });
   const [showFavoritesModal, setShowFavoritesModal] = useState(false);
+  const [showRoutesView, setShowRoutesView] = useState(false);
 
   // Translations
   const t = TRANSLATIONS[state.language]?.app || TRANSLATIONS[Language.ENGLISH].app;
@@ -392,6 +394,7 @@ const App: React.FC = () => {
                     query: '', language: Language.ENGLISH, loading: false, error: null, data: null, imageUrl: null,
                     analysisImages: [], analysisResult: null, analyzing: false
                 });
+                setShowRoutesView(false);
                 try {
                    window.history.pushState({}, '', window.location.pathname);
                 } catch(e) { console.warn('History update failed', e); }
@@ -405,6 +408,16 @@ const App: React.FC = () => {
               </span>
             </div>
             <div className="flex items-center gap-4">
+              <button 
+                onClick={() => {
+                  setShowRoutesView(true);
+                  setShowFavoritesModal(false);
+                }}
+                className="flex items-center gap-2 text-stone-400 hover:text-heritage-gold transition-colors font-serif text-sm uppercase tracking-wide px-3 py-2 rounded-lg hover:bg-stone-900"
+              >
+                <RouteIcon className="w-5 h-5" />
+                <span className="hidden md:inline">Routes</span>
+              </button>
               <button 
                 onClick={() => setShowFavoritesModal(true)}
                 className="flex items-center gap-2 text-stone-400 hover:text-heritage-red transition-colors font-serif text-sm uppercase tracking-wide px-3 py-2 rounded-lg hover:bg-stone-900"
@@ -425,7 +438,25 @@ const App: React.FC = () => {
 
       {/* Hero / Content */}
       <main className="flex-grow">
-        {!state.data && !state.loading ? (
+        {showRoutesView ? (
+          // Routes View
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <button 
+              onClick={() => setShowRoutesView(false)}
+              className="mb-6 flex items-center gap-2 text-stone-400 hover:text-heritage-gold transition-colors"
+            >
+              <span>←</span> Back to Search
+            </button>
+            <RoutePlanner 
+              currentPlace={state.data?.placeName}
+              language={state.language}
+              onSelectPlace={(place) => {
+                setShowRoutesView(false);
+                performSearch(place, state.language);
+              }}
+            />
+          </div>
+        ) : !state.data && !state.loading ? (
           // Hero State
           <div className="flex flex-col items-center justify-center min-h-[80vh] px-4 text-center space-y-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-900 via-stone-950 to-stone-950">
             <div className="space-y-4 max-w-3xl">

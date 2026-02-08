@@ -3,6 +3,7 @@ import { HistoricPlaceData, VisualAnalysisData, Language, Section } from '../typ
 import { TRANSLATIONS } from '../translations';
 import { MapPinIcon, ClockIcon, BoxIcon, SparklesIcon, InfoIcon, ShareIcon, CheckIcon, HeartIcon, ScrollIcon, CrownIcon, BlueprintIcon, UserGroupIcon, BrokenIcon, LightbulbIcon, EyeIcon, UploadIcon, GlobeIcon, XIcon } from './Icons';
 import { translateSummary } from '../services/geminiService';
+import MapView from './MapView';
 
 interface Props {
   data: HistoricPlaceData;
@@ -25,7 +26,7 @@ const PlaceDisplay: React.FC<Props> = ({
   analysisImages, analysisResult, analyzing, onUploadImages, onAnalyze, onClearAnalysis, language, isLoading
 }) => {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'3d' | 'insights' | 'analysis'>('3d');
+  const [activeTab, setActiveTab] = useState<'3d' | 'insights' | 'analysis' | 'map'>('3d');
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [translations, setTranslations] = useState<Record<string, string> | null>(null);
   const [translating, setTranslating] = useState(false);
@@ -190,6 +191,7 @@ const PlaceDisplay: React.FC<Props> = ({
         {[
             { id: '3d', label: t.view3d, icon: BoxIcon },
             { id: 'insights', label: t.insights, icon: ScrollIcon },
+            { id: 'map', label: t.mapView || 'Map', icon: MapPinIcon },
             { id: 'analysis', label: t.analysis, icon: EyeIcon }
         ].map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id as any)} className={`px-4 md:px-6 py-2 font-serif text-sm uppercase tracking-widest transition-all border-b-2 ${activeTab === tab.id ? 'border-heritage-gold text-heritage-gold' : 'border-transparent text-stone-500 hover:text-stone-300'}`}>
@@ -348,6 +350,37 @@ const PlaceDisplay: React.FC<Props> = ({
              <div className="bg-stone-900/50 p-6 rounded-lg border border-stone-800">
                 <h3 className="text-heritage-gold font-serif text-xl mb-3">{t.architecture}</h3>
                 <p className="text-stone-300 leading-relaxed font-sans">{data.architecturalStyle}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 4. MAP VIEW */}
+      {activeTab === 'map' && (
+        <div className="space-y-6 animate-fade-in">
+          <MapView 
+            placeName={data.placeName}
+            location={data.location}
+            // Coordinates can be extracted from Gemini or use a geocoding service
+            // For now, we'll let MapView show approximate location
+          />
+          <div className="bg-stone-900/50 p-6 rounded-lg border border-stone-800">
+            <h3 className="text-heritage-gold font-serif text-xl mb-3 flex items-center gap-2">
+              <MapPinIcon className="w-5 h-5" />
+              Location Information
+            </h3>
+            <div className="space-y-3 text-stone-300">
+              <p className="flex items-start gap-2">
+                <span className="text-heritage-gold font-serif">Location:</span>
+                <span className="font-sans">{data.location}</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <span className="text-heritage-gold font-serif">Time Period:</span>
+                <span className="font-sans">{data.timePeriod}</span>
+              </p>
+              <p className="text-sm text-stone-500 mt-4">
+                💡 Use the interactive map above to explore the location. You can zoom in/out and click on markers for more details.
+              </p>
             </div>
           </div>
         </div>
