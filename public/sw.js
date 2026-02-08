@@ -6,12 +6,10 @@
 const CACHE_NAME = 'itihas-heritage-v1';
 const RUNTIME_CACHE = 'itihas-runtime-v1';
 
-// Assets to cache on install
+// Assets to cache on install (only static assets that exist in production)
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/index.css',
-  '/index.tsx',
 ];
 
 // Install event - cache essential assets

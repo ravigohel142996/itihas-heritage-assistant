@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Fix default marker icon issue in Leaflet with bundlers
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-});
+// Configure default marker icon using the recommended approach
+L.Icon.Default.imagePath = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/';
+
+// Custom marker styles as constants for maintainability
+const MAIN_MARKER_STYLE = 'background: #d4af37; border: 3px solid #1a1a1a; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.5);';
+const MAIN_MARKER_ICON = '<span style="color: #1a1a1a; font-weight: bold; font-size: 16px;">📍</span>';
+const NEARBY_MARKER_STYLE = 'background: #8a2be2; border: 2px solid #1a1a1a; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3);';
+const NEARBY_MARKER_ICON = '<span style="color: white; font-size: 10px;">🏛️</span>';
+const POPUP_STYLE = "font-family: 'Cinzel', serif; color: #1a1a1a;";
 
 interface MapViewProps {
   placeName: string;
@@ -59,20 +61,20 @@ const MapView: React.FC<MapViewProps> = ({ placeName, location, coordinates, nea
     // Add main location marker with custom icon
     const mainIcon = L.divIcon({
       className: 'custom-marker',
-      html: `<div style="background: #d4af37; border: 3px solid #1a1a1a; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.5);"><span style="color: #1a1a1a; font-weight: bold; font-size: 16px;">📍</span></div>`,
+      html: `<div style="${MAIN_MARKER_STYLE}">${MAIN_MARKER_ICON}</div>`,
       iconSize: [30, 30],
       iconAnchor: [15, 30],
     });
 
     const mainMarker = L.marker([defaultCoords.lat, defaultCoords.lng], { icon: mainIcon })
       .addTo(mapInstanceRef.current)
-      .bindPopup(`<div style="font-family: 'Cinzel', serif; color: #1a1a1a;"><strong>${placeName}</strong><br/><small>${location}</small></div>`);
+      .bindPopup(`<div style="${POPUP_STYLE}"><strong>${placeName}</strong><br/><small>${location}</small></div>`);
 
     // Add nearby places markers if available
     if (nearbyPlaces.length > 0) {
       const nearbyIcon = L.divIcon({
         className: 'nearby-marker',
-        html: `<div style="background: #8a2be2; border: 2px solid #1a1a1a; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"><span style="color: white; font-size: 10px;">🏛️</span></div>`,
+        html: `<div style="${NEARBY_MARKER_STYLE}">${NEARBY_MARKER_ICON}</div>`,
         iconSize: [20, 20],
         iconAnchor: [10, 20],
       });
@@ -80,7 +82,7 @@ const MapView: React.FC<MapViewProps> = ({ placeName, location, coordinates, nea
       nearbyPlaces.forEach((place) => {
         L.marker([place.lat, place.lng], { icon: nearbyIcon })
           .addTo(mapInstanceRef.current!)
-          .bindPopup(`<div style="font-family: 'Cinzel', serif; color: #1a1a1a;"><strong>${place.name}</strong>${place.distance ? `<br/><small>${place.distance} away</small>` : ''}</div>`);
+          .bindPopup(`<div style="${POPUP_STYLE}"><strong>${place.name}</strong>${place.distance ? `<br/><small>${place.distance} away</small>` : ''}</div>`);
       });
 
       // Fit bounds to show all markers

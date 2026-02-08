@@ -1,6 +1,6 @@
 {
   "name": "Itihas - Heritage Assistant",
-  "short_name": "Itihas3D",
+  "short_name": "Itihas",
   "description": "Explore Indian heritage sites with AI-powered insights, 3D visualizations, and interactive maps",
   "start_url": "/",
   "display": "standalone",

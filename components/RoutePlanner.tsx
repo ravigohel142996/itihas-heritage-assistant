@@ -51,10 +51,19 @@ const RoutePlanner: React.FC<RoutesPlannerProps> = ({ currentPlace, language, on
       id: 'south-temple',
       name: 'South India Temple Circuit',
       description: 'Experience the architectural grandeur of South Indian temples',
-      places: ['Meenakshi Temple', 'Brihadeeswarar Temple', 'Virupaksha Temple', 'Konark Sun Temple', 'Jagannath Temple Puri'],
+      places: ['Meenakshi Temple', 'Brihadeeswarar Temple', 'Virupaksha Temple', 'Jagannath Temple Puri', 'Shore Temple Mahabalipuram'],
       estimatedTime: '6-8 days',
       difficulty: 'Moderate',
       region: 'South India'
+    },
+    {
+      id: 'east-heritage',
+      name: 'Eastern India Heritage',
+      description: 'Explore ancient temples and monuments of Eastern India',
+      places: ['Konark Sun Temple', 'Jagannath Temple Puri', 'Lingaraja Temple', 'Victoria Memorial', 'Dakshineswar Temple'],
+      estimatedTime: '3-4 days',
+      difficulty: 'Easy',
+      region: 'East India'
     },
     {
       id: 'heritage-mumbai',
