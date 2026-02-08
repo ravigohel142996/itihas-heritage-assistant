@@ -1,6 +1,6 @@
 # Itihas - Heritage Assistant
 
-Itihas is an AI-powered heritage assistant designed to provide users with deep insights into historical places, cultural significance, and visual experiences. This project uses OpenAI GPT-5 for intelligent historical information generation.
+Itihas is an AI-powered heritage assistant designed to provide users with deep insights into historical places, cultural significance, and visual experiences. This project was created as part of the Gemini 3 Hackathon.
 
 ---
 
@@ -8,10 +8,10 @@ Itihas is an AI-powered heritage assistant designed to provide users with deep i
 
 ### Core Features
 - **🌍 Multilingual Support**: Explore heritage sites in 20+ languages including Hindi, Tamil, Telugu, Arabic, French, Spanish, Chinese, Japanese, and more.
-- **🧠 AI-Powered Q&A**: Powered by OpenAI GPT-5 for accurate historical information and intelligent responses.
+- **🧠 AI-Powered Q&A**: Powered by Google Gemini API for accurate historical information and intelligent responses.
 - **🔍 Heritage Place Search**: Text and voice search for Indian heritage sites.
 - **📸 Image Analysis**: Upload images of historical sites to analyze architectural details, materials, age, and wear.
-- **🎨 3D Visualization**: Experience immersive AI-generated descriptions of heritage sites.
+- **🎨 3D Visualization**: Experience immersive AI-generated 3D visualizations of heritage sites.
 - **❤️ Favorites System**: Save your favorite places for quick access with local storage persistence.
 
 ### New Features (Latest Update)
@@ -31,8 +31,8 @@ Itihas is an AI-powered heritage assistant designed to provide users with deep i
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- A valid OpenAI API key (sign up at [OpenAI Platform](https://platform.openai.com))
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- A valid Gemini API key (sign up at [Gemini API](https://gemini.google.com))
 
 ---
 
@@ -53,66 +53,27 @@ npm install
 ```
 
 ### 3. Set Up Environment Variables
-Create a `.env` file in the root directory and add your OpenAI API key:
+Create a `.env.local` file in the root directory and add your Gemini API key:
 ```
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-**Important:** The API key is used only in the backend serverless function and is never exposed to the frontend.
-
-### 4. Run the Application Locally
-For local development with Netlify functions:
-```bash
-npm install -g netlify-cli
-netlify dev
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-The app will be available at `http://localhost:8888` (Netlify dev server).
-
-Alternatively, for frontend-only development (note: API calls will fail without the backend):
+### 4. Run the Application
+Start the development server:
 ```bash
 npm run dev
 ```
+The app will be available at `http://localhost:3000`.
 
 ### 5. Build for Production
 Build the optimized production version:
 ```bash
 npm run build
 ```
-
 Preview the production build:
 ```bash
 npm run preview
 ```
-
----
-
-## Deployment to Netlify
-
-### Automatic Deployment
-1. Push your code to GitHub
-2. Connect your repository to Netlify
-3. Configure environment variable:
-   - Go to Site settings → Environment variables
-   - Add `OPENAI_API_KEY` with your OpenAI API key
-4. Deploy settings (auto-detected from `netlify.toml`):
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   - Functions directory: `netlify/functions`
-
-### Manual Deployment
-```bash
-# Install Netlify CLI globally
-npm install -g netlify-cli
-
-# Login to Netlify
-netlify login
-
-# Deploy
-netlify deploy --prod
-```
-
-**Note:** Always ensure `OPENAI_API_KEY` is set in Netlify's environment variables before deployment.
 
 ---
 
@@ -155,10 +116,7 @@ netlify deploy --prod
 │   ├── PlaceDisplay.tsx # Place details with tabs
 │   └── RoutePlanner.tsx # Heritage routes explorer
 ├── services/            # API service integrations
-│   └── openaiService.ts # OpenAI API integration
-├── netlify/             # Netlify serverless functions
-│   └── functions/
-│       └── openai-proxy.ts  # Backend proxy for OpenAI API
+│   └── geminiService.ts # Gemini API integration
 ├── public/              # Static assets
 │   ├── manifest.json    # PWA manifest
 │   └── sw.js           # Service worker for offline support
@@ -168,9 +126,8 @@ netlify deploy --prod
 ├── translations.ts      # Multilingual translations (20+ languages)
 ├── types.ts             # TypeScript type definitions
 ├── vite.config.ts       # Vite configuration
-├── netlify.toml         # Netlify deployment configuration
 ├── package.json         # Project dependencies and scripts
-└── .env                 # Environment variables (create this)
+└── .env.local           # Environment variables (create this)
 ```
 
 ---
@@ -179,13 +136,11 @@ netlify deploy --prod
 
 - **Frontend**: React 19 + TypeScript
 - **Build Tool**: Vite
-- **AI**: OpenAI GPT-5 (Chat Completions API)
-- **Backend**: Netlify Serverless Functions (Node.js)
+- **AI**: Google Gemini API (gemini-3-flash-preview, gemini-2.5-flash-image)
 - **Maps**: Leaflet + OpenStreetMap
 - **Styling**: Tailwind CSS (via CDN)
 - **PWA**: Service Workers + Web App Manifest
 - **Voice**: Web Speech API
-- **Hosting**: Netlify
 
 ---
 
@@ -197,10 +152,11 @@ netlify deploy --prod
 - Type-safe with TypeScript interfaces
 
 ### AI Integration
-- OpenAI GPT-5 for text generation and historical insights
-- Backend proxy ensures API key security
+- Multiple Gemini models for different use cases:
+  - Text generation for historical insights
+  - Image generation for 3D visualizations
+  - Multimodal analysis for photo uploads
 - Structured JSON outputs with validation
-- Error handling for rate limits and invalid keys
 
 ### Performance
 - Code splitting and lazy loading

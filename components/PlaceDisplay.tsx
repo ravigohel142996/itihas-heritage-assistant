@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { HistoricPlaceData, VisualAnalysisData, Language, Section } from '../types';
 import { TRANSLATIONS } from '../translations';
 import { MapPinIcon, ClockIcon, BoxIcon, SparklesIcon, InfoIcon, ShareIcon, CheckIcon, HeartIcon, ScrollIcon, CrownIcon, BlueprintIcon, UserGroupIcon, BrokenIcon, LightbulbIcon, EyeIcon, UploadIcon, GlobeIcon, XIcon } from './Icons';
-import { translateSummary } from '../services/openaiService';
+import { translateSummary } from '../services/geminiService';
 import MapView from './MapView';
 
 interface Props {
