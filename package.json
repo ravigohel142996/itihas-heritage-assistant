@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "netlify dev",
+    "dev:vite": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "netlify:serve": "netlify dev"
   },
   "dependencies": {
     "@google/genai": "^1.39.0",
@@ -17,8 +19,10 @@
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
+    "@netlify/functions": "^2.8.2",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "netlify-cli": "^17.38.1",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
