@@ -3,6 +3,8 @@ import { HistoricPlaceData, VisualAnalysisData, Language, Section } from '../typ
 import { TRANSLATIONS } from '../translations';
 import { MapPinIcon, ClockIcon, BoxIcon, SparklesIcon, InfoIcon, ShareIcon, CheckIcon, HeartIcon, ScrollIcon, CrownIcon, BlueprintIcon, UserGroupIcon, BrokenIcon, LightbulbIcon, EyeIcon, UploadIcon, GlobeIcon, XIcon } from './Icons';
 import MapView from './MapView';
+import Skeleton, { CardSkeleton } from './Skeleton';
+import LazyImage from './LazyImage';
 
 interface Props {
   data: HistoricPlaceData;
@@ -317,7 +319,11 @@ const PlaceDisplay: React.FC<Props> = ({
             <div ref={imageContainerRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="relative aspect-video w-full rounded-lg border-2 border-stone-800 shadow-2xl group overflow-hidden perspective-1000 cursor-move" style={{ perspective: '1000px' }}>
                <div className="w-full h-full transition-transform duration-100 ease-out" style={{ transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale(1.02)`, transformStyle: 'preserve-3d' }}>
                  {imageUrl ? (
-                   <img src={imageUrl} alt={data.placeName} className="w-full h-full object-cover" />
+                   <LazyImage 
+                     src={imageUrl} 
+                     alt={data.placeName} 
+                     className="w-full h-full object-cover" 
+                   />
                  ) : (
                    <div className="w-full h-full bg-stone-900 flex items-center justify-center text-stone-600">
                      {isLoading ? (
