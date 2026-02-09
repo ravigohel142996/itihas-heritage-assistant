@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { HistoricPlaceData, VisualAnalysisData, Language, Section } from '../types';
 import { TRANSLATIONS } from '../translations';
 import { MapPinIcon, ClockIcon, BoxIcon, SparklesIcon, InfoIcon, ShareIcon, CheckIcon, HeartIcon, ScrollIcon, CrownIcon, BlueprintIcon, UserGroupIcon, BrokenIcon, LightbulbIcon, EyeIcon, UploadIcon, GlobeIcon, XIcon } from './Icons';
-import { translateSummary } from '../services/geminiService';
 import MapView from './MapView';
 
 interface Props {
@@ -79,7 +78,12 @@ const PlaceDisplay: React.FC<Props> = ({
       
       setTranslating(true);
       try {
-          const result = await translateSummary(summaryText);
+          // Translation feature disabled in production for now
+          // TODO: Implement backend translation service
+          const result = {
+            "Note": "Translation feature is temporarily disabled in production mode.",
+            "Original": summaryText
+          };
           setTranslations(result);
           setShowTranslations(true);
       } catch (e) {
