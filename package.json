@@ -22,7 +22,7 @@
     "@netlify/functions": "^2.8.2",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
-    "netlify-cli": "^17.37.1",
+    "netlify-cli": "^17.38.1",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
